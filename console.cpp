@@ -11,7 +11,8 @@ using std::cin;
 
 
 void get_user_count_by_field(struct list* list){
-    int (*func) (struct list, std::string);
+    Actions actions;
+    int (*func) (struct list*, std::string);
     while (true){
         cout << "1. Получить количество пользователей по имени" << endl; 
         cout << "2. Получить количество пользователей по фамилии" << endl; 
@@ -34,6 +35,8 @@ void get_user_count_by_field(struct list* list){
         else
         if (action == "6") break;
         else continue;
+        actions.get_number_by_field(list, func);
+        break;
     }
 }
 

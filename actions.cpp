@@ -35,5 +35,28 @@ void Actions::add_element(struct list* list){
     user->position = str;    
     std::cout << "Введите место проживания пользователя" << std::endl;    
     str = get_and_validate_data();
-    user->home_location = str;    
+    user->home_location = str;
+    struct node* Node = (struct node*) malloc(sizeof(struct node*));
+    Node->data = user;
+    add_node(list, Node);
+}
+
+void Actions::get_number_by_field(struct list* list, int (*func) (struct list*, std::string)){
+    if (!list->start){
+        std::cout << "Список пуст" << std::endl;
+        std::cin.get();
+        return;
+    }
+    std::cout << "Введите ваши дынные" << std::endl;
+    
+    std::string str;
+    getline(std::cin, str);
+
+    int result = (*func) (list, str);
+
+
+    std::cout << "Результат: " << result << std::endl;
+    std::cout << "Чтобы продолжить нажмите любую клавишу" << std::endl;
+    system("read -n 1");
+    system("clear");
 }
