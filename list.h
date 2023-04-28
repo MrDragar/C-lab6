@@ -30,4 +30,5 @@ void add_node(struct list* list, struct node* new_node);
 size_t get_list_length(struct list* list);
 bool remove_last_node(struct list* list);
 void clear_list(struct list* list);
+struct user* get_user_by_index(struct list* list, size_t index);
 #endif

@@ -7,6 +7,7 @@ class Actions{
             Actions(){}
             void add_element(struct list* list);
             void get_number_by_field(struct list* list, int (*func) (struct list*, std::string));
+            void print_list(struct list* list);
 };
 
 #endif

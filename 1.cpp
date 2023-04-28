@@ -12,32 +12,26 @@ void wait_key_press(){
     system("clear");
 }
 
-bool containsRussian(const std::string& str) {
-    for (char c : str) {
-        if (c >= -128 && c < 0) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
 std::string get_and_validate_data() {
     std::string str;
+    std::regex pattern("^[^а-яА-Я]*$");
     while (true) {
         getline(std::cin, str);
+        // if (str.find(";") == std::string::npos) break;
         if (str.find(";") != std::string::npos) {
             std::cout << "Your data has separator ';'. Retry input" << std::endl;
             continue;
         }
+        // if (str != "") ;
         if (str == "") {
             std::cout << "Your string is emty. Retry input" << std::endl;
             continue;
         }
-        if (containsRussian(str)) {
-            std::cout << "Don't use russian language. Retry input" << std::endl;
-            continue;
-        }    
+        // if (std::regex_match(str, pattern)) break;
+        // if (!std::regex_match(str, pattern)) {
+        //     std::cout << "Don't use russian language. Retry input" << std::endl;
+        //     continue;
+        // }
         break;
     }
     std::system("clear");
@@ -59,17 +53,15 @@ void Actions::add_element(struct list* list){
     fio->surname = str; 
     struct user* user = (struct user*) malloc(sizeof(struct user));
     user->fio = fio;
-    system("read -n 1");
 
     std::cout << "Put user's positions" << std::endl;
     str = get_and_validate_data();
     user->position = str;
-    
 
     std::cout << "Put user's home location" << std::endl;     
     str = get_and_validate_data();
  
-    std::cout << str << std::endl; 
+    std::cout << str << std::endl;
 
     user->home_location = str;
 

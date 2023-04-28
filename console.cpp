@@ -14,12 +14,12 @@ void get_user_count_by_field(struct list* list){
     Actions actions;
     int (*func) (struct list*, std::string);
     while (true){
-        cout << "1. Получить количество пользователей по имени" << endl; 
-        cout << "2. Получить количество пользователей по фамилии" << endl; 
-        cout << "3. Получить количество пользователей по отчеству" << endl;
-        cout << "4. Получить количество пользователей по должности" << endl; 
-        cout << "5. Получить количество пользователей по месту" << endl; 
-        cout << "6. Назад" << endl; 
+        cout << "1. Get number of users by first name" << endl; 
+        cout << "2. Get number of users by second name" << endl; 
+        cout << "3. Get number of users by surname" << endl;
+        cout << "4. Get number of users by position" << endl; 
+        cout << "5. Get number of users by home location" << endl; 
+        cout << "6. Back" << endl; 
         std::string action;
         getline(cin, action);
         std::system("clear");
@@ -48,15 +48,15 @@ void strart_session(){
     std::system("clear");
 
     while (true) {
-        cout << "Выберите действие" << endl;
-        cout << "1. Добавить элемент" << endl;
-        cout << "2. Вывод списка на экран " << endl;
-        cout << "3. Получить количество пользователей по полю" << endl; 
-        cout << "4. Сохранить список в файл" << endl;
-        cout << "5. Прочитать список из файла" << endl; 
-        cout << "6. Очистить список" << endl;      
-        cout << "7. Обнулить элементы списока" << endl;      
-        cout << "8. Выход" << endl;
+        cout << "Choose option" << endl;
+        cout << "1. Add element" << endl;
+        cout << "2. Print list on screen" << endl;
+        cout << "3. Get number of users by field" << endl; 
+        cout << "4. Save file into file" << endl;
+        cout << "5. Read file from file" << endl; 
+        cout << "6. Clear list" << endl;      
+        cout << "7. Set default values for elements" << endl;      
+        cout << "8. Exit" << endl;
         std::string action;
         getline(cin, action);
         std::system("clear");
@@ -66,7 +66,7 @@ void strart_session(){
             continue;
         }
         if(action == "2") {
-            clear_list(list);
+            actions.print_list(list);
             continue;
         }
         if(action == "3") {
@@ -79,7 +79,8 @@ void strart_session(){
         if(action == "5") {
             continue;
         }
-        if(action == "6") {
+        if(action == "6") {                        
+            clear_list(list);
             continue;
         }
         if(action == "7") {
