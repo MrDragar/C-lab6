@@ -45,6 +45,7 @@ std::string get_and_validate_data() {
 }
 
 void Actions::add_element(struct list* list){
+    
     struct FIO* fio = (struct FIO*) malloc(sizeof(struct FIO));
     std::cout << "Put user's first name" << std::endl;
     std::string str = get_and_validate_data();
@@ -59,7 +60,6 @@ void Actions::add_element(struct list* list){
     fio->surname = str; 
     struct user* user = (struct user*) malloc(sizeof(struct user));
     user->fio = fio;
-    system("read -n 1");
 
     std::cout << "Put user's positions" << std::endl;
     str = get_and_validate_data();

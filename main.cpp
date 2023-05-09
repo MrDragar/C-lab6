@@ -3,10 +3,11 @@
 #include "console.h"
 #include <locale>
 #include <locale.h>
+#include <regex>
 
 int main(){
-    // std::locale::global(std::locale(""));    
-    // std::locale::global(std::locale(""));
-    // setlocale(LC_ALL, "en_US.UTF-8");
-    strart_session();
+    std::string str = "123";
+    std::regex pattern("([А-Яа-я]*)([\\s]?)([А-Яа-я]*)([\\s]?)([А-Яа-я]*);([0-9]{0,3});([А-Яа-я]*)");
+    // std::regex_match(str.c_str(), pattern);
+    start_session();
 }
