@@ -11,7 +11,6 @@ using std::cin;
 
 
 void get_user_count_by_field(struct list* list){
-    Actions actions;
     int (*func) (struct list*, std::string);
     while (true){
         cout << "1. Get number of users by first name" << endl; 
@@ -25,24 +24,24 @@ void get_user_count_by_field(struct list* list){
         std::system("clear");
         if (action == "1") func = &get_number_by_first_name;
         else
-        if (action == "2") func = &get_number_by_surname;
-        else
-        if (action == "3") func = &get_number_by_second_name;
-        else
-        if (action == "4") func = &get_number_by_position;
-        else
-        if (action == "5") func = &get_number_by_home_location;
-        else
-        if (action == "6") break;
-        else continue;
-        actions.get_number_by_field(list, func);
+            if (action == "2") func = &get_number_by_surname;
+            else
+                if (action == "3") func = &get_number_by_second_name;
+                else
+                    if (action == "4") func = &get_number_by_position;
+                    else
+                        if (action == "5") func = &get_number_by_home_location;
+                        else
+                            if (action == "6") break;
+                            else continue;
+        Actions::get_number_by_field(list, func);
         break;
     }
 }
 
 
 
-void strart_session(){
+void start_session(){
     Actions actions;
     struct list* list = init_list();
     std::system("clear");
@@ -62,11 +61,11 @@ void strart_session(){
         std::system("clear");
 
         if(action == "1") {
-            actions.add_element(list);
+            Actions::add_element(list);
             continue;
         }
         if(action == "2") {
-            actions.print_list(list);
+            Actions::print_list(list);
             continue;
         }
         if(action == "3") {
@@ -80,7 +79,7 @@ void strart_session(){
             continue;
         }
         if(action == "6") {                        
-            clear_list(list);
+            clear_list(&list);
             continue;
         }
         if(action == "7") {

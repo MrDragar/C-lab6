@@ -1,8 +1,5 @@
 #include <string>
-#include "list.h"
 #include "console.h"
-#include <locale>
-#include <locale.h>
 #include <regex>
 
 int main(){

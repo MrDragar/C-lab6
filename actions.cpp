@@ -26,11 +26,11 @@ std::string get_and_validate_data() {
     std::string str;
     while (true) {
         getline(std::cin, str);
-        if (str.find(";") != std::string::npos) {
+        if (str.find(';') != std::string::npos) {
             std::cout << "Your data has separator ';'. Retry input" << std::endl;
             continue;
         }
-        if (str == "") {
+        if (str.empty()) {
             std::cout << "Your string is emty. Retry input" << std::endl;
             continue;
         }
@@ -46,7 +46,7 @@ std::string get_and_validate_data() {
 
 void Actions::add_element(struct list* list){
     
-    struct FIO* fio = (struct FIO*) malloc(sizeof(struct FIO));
+    auto fio = new struct FIO;
     std::cout << "Put user's first name" << std::endl;
     std::string str = get_and_validate_data();
     fio->first_name = str;
@@ -58,7 +58,7 @@ void Actions::add_element(struct list* list){
     std::cout << "Put user's surname" << std::endl;
     str = get_and_validate_data();
     fio->surname = str; 
-    struct user* user = (struct user*) malloc(sizeof(struct user));
+    auto* user = new struct user;
     user->fio = fio;
 
     std::cout << "Put user's positions" << std::endl;
@@ -74,7 +74,7 @@ void Actions::add_element(struct list* list){
     user->home_location = str;
 
     wait_key_press();
-    struct node* Node = (struct node*) malloc(sizeof(struct node*));
+    auto* Node = new struct node;
     Node->data = user;
     add_node(list, Node);
 }

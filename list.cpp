@@ -3,7 +3,8 @@
 
 
 struct list* init_list(){
-    struct list* list= (struct list*) malloc(sizeof(struct list));
+    auto* list = new struct list;
+    list->start = nullptr;
     return list;
 }
 
@@ -38,23 +39,27 @@ size_t get_list_length(struct list* list){
 
 bool remove_last_node(struct list* list){
     struct node* current_node = list->start;
-    if (!current_node) return 1;
+    if (!current_node) return true;
+    if (!current_node->next_node) {
+        delete current_node;
+        return true;
+    }
     while (true) {
         if (current_node->next_node) {
             if (!current_node->next_node->next_node){
-                free(current_node->next_node->next_node);
+                delete current_node->next_node->next_node;
                 current_node->next_node->next_node = nullptr;
             }
             current_node = current_node->next_node;
        }
         else break;
     }
-    return 0;
+    return false;
 }
 
-void clear_list(struct list* list) {
-    while (true) if (remove_last_node(list)) break;
-    list = init_list();
+void clear_list(struct list** list) {
+    while (true) if (remove_last_node(*list)) break;
+    *list = init_list();
 }
 
 struct user* get_user_by_index(struct list* list, size_t index){
@@ -72,7 +77,7 @@ struct list* copy_list(struct list* list) {
     struct list* new_list = init_list();
     for (size_t i=0; i < len; i++) {
         struct user* user = get_user_by_index(list, i);
-        struct node* node = (struct node*) malloc(sizeof(struct node*));
+        auto* node = new struct node;
         node->data = user;
         add_node(new_list, node);
     }
