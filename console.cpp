@@ -12,13 +12,13 @@ using std::cin;
 
 
 void get_user_count_by_field(struct list* list){
-    int (*func) (struct list*, std::string);
+    int (*func) (struct list*, const std::string&);
     while (true){
         cout << "1. Get number of users by first name" << endl; 
         cout << "2. Get number of users by second name" << endl; 
         cout << "3. Get number of users by surname" << endl;
-        cout << "4. Get number of users by position" << endl; 
-        cout << "5. Get number of users by home location" << endl; 
+        cout << "4. Get number of users by age" << endl;
+        cout << "5. Get number of users by marital status" << endl;
         cout << "6. Back" << endl; 
         std::string action;
         getline(cin, action);
@@ -40,7 +40,38 @@ void get_user_count_by_field(struct list* list){
     }
 }
 
+void sort_users(struct list* list){
+    struct list* new_list = copy_list(list);
+    while (true) {
+        cout << "1. Sort users by first name" << endl;
+        cout << "2. Sort users by second name" << endl;
+        cout << "3. Sort users by surname" << endl;
+        cout << "4. Sort users by age" << endl;
+        cout << "5. Sort users by marital status" << endl;
+        cout << "6. Back" << endl;
+        std::string action;
+        getline(cin, action);
+        std::system("clear");
 
+        if (action == "1") sort_list_by_first_name(new_list);
+        else
+            if (action == "2") sort_list_by_second_name(new_list);
+            else
+                if (action == "3") sort_list_by_surname(new_list);
+                else
+                    if (action == "4") sort_list_by_position(new_list);
+                    else
+                        if (action == "5") sort_list_by_marital_status(new_list);
+                        else
+                            if (action == "6") break;
+                            else continue;
+
+        Actions::print_list(new_list);
+        clear_list(&new_list);
+        delete new_list;
+        break;
+    }
+}
 
 void start_session(){
     Actions actions;
@@ -52,11 +83,13 @@ void start_session(){
         cout << "1. Add element" << endl;
         cout << "2. Print list on screen" << endl;
         cout << "3. Get number of users by field" << endl; 
-        cout << "4. Save file into file" << endl;
-        cout << "5. Read file from file" << endl; 
+        cout << "4. Save data into file" << endl;
+        cout << "5. Read read from file" << endl;
         cout << "6. Clear list" << endl;      
-        cout << "7. Set default values for elements" << endl;      
-        cout << "8. Exit" << endl;
+        cout << "7. Set default values for elements" << endl;
+        cout << "8. Sort users" << endl;
+        cout << "9. Exit" << endl;
+
         std::string action;
         getline(cin, action);
         std::system("clear");
@@ -74,6 +107,7 @@ void start_session(){
             continue;
         }
         if(action == "4") {
+            Actions::save_to_file(list);
             continue;
         }
         if(action == "5") {
@@ -85,12 +119,14 @@ void start_session(){
             continue;
         }
         if(action == "7") {
-            continue;
-        }
-        if(action == "9") {
+            Actions::set_default_values(list);
             continue;
         }
         if(action == "8") {
+            sort_users(list);
+            continue;
+        }
+        if(action == "9") {
             break;
         }
 

@@ -64,15 +64,15 @@ void Actions::add_element(struct list* list){
 
     std::cout << "Put user's positions" << std::endl;
     str = get_and_validate_data();
-    user->position = str;
+    user->age = str;
     
 
-    std::cout << "Put user's home location" << std::endl;     
+    std::cout << "Put user's marital status" << std::endl;
     str = get_and_validate_data();
  
     std::cout << str << std::endl; 
 
-    user->home_location = str;
+    user->marital_status = str;
 
     wait_key_press();
     auto* Node = new struct node;
@@ -80,9 +80,9 @@ void Actions::add_element(struct list* list){
     add_node(list, Node);
 }
 
-void Actions::get_number_by_field(struct list* list, int (*func) (struct list*, std::string)){
+void Actions::get_number_by_field(struct list* list, int (*func) (struct list*, const std::string&)){
     if (!list->start){
-        std::cout << "List is emty" << std::endl;
+        std::cout << "List is empty" << std::endl;
         std::cin.get();
         return;
     }
@@ -107,8 +107,8 @@ void Actions::print_list(struct list* list){
     std::cout << std::setw(15) << "First name";
     std::cout << std::setw(15) << "Second name";
     std::cout << std::setw(15) << "Surname" ;
-    std::cout << std::setw(15) << "Home location";
-    std::cout << std::setw(15) << "Position" << std::endl;
+    std::cout << std::setw(15) << "Marital status";
+    std::cout << std::setw(15) << "Age" << std::endl;
     std::cout << std::setfill('*') << std::setw(80) << "*" << std::endl;
 
     for (size_t i=0; i < len; i++) {
@@ -119,8 +119,8 @@ void Actions::print_list(struct list* list){
         std::cout << std::setw(15) << user->fio->first_name;
         std::cout << std::setw(15) << user->fio->second_name;
         std::cout << std::setw(15) << user->fio->surname;
-        std::cout << std::setw(15) << user->home_location;
-        std::cout << std::setw(15) << user->position << std::endl;
+        std::cout << std::setw(15) << user->marital_status;
+        std::cout << std::setw(15) << user->age << std::endl;
         std::cout << std::setfill('*') << std::setw(80) << "*" << std::endl;
 
     }
@@ -141,6 +141,33 @@ void Actions::read_from_file(struct list **list) {
     clear_list(list);
     delete *list;
     *list = new_list;
-    std::cout << "File was read successful" << std::endl;
+    std::cout << "Data was read successful" << std::endl;
+    wait_key_press();
+}
+
+void Actions::save_to_file(struct list* list){
+    bool error = save_data_into_file(list);
+    if (error) std::cout << "Some errors while reading file" << std::endl;
+    else std::cout << "Data was saved successful" << std::endl;
+    wait_key_press();
+}
+
+void Actions::set_default_values(struct list* list){
+    if (!list->start) {
+        std::cout << "List is empty" << std::endl;
+        wait_key_press();
+        return;
+    }
+    struct node* current_node = list->start;
+    while (true){
+        current_node->data->fio->first_name = "-";
+        current_node->data->fio->second_name = "-";
+        current_node->data->fio->surname = "-";
+        current_node->data->age = "-";
+        current_node->data->marital_status = "-";
+        if(!current_node->next_node) break;
+        current_node = current_node->next_node;
+    }
+    std::cout << "Values of list were reset" << std::endl;
     wait_key_press();
 }

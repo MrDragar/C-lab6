@@ -2,13 +2,14 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <sstream>
 #include <boost/algorithm/string.hpp>
+#include <iostream>
 #include "list.h"
 
 bool read_data_from_file(struct list* list){
     std::fstream file("data.txt");
     if (!file.is_open()) return true;
+
     while (true) {
         std::string input_line;
         std::getline(file, input_line);
@@ -26,8 +27,8 @@ bool read_data_from_file(struct list* list){
 
         auto* new_user = new struct user;
         new_user->fio = new_FIO;
-        new_user->position = strs[3];
-        new_user->home_location = strs[4];
+        new_user->age = strs[3];
+        new_user->marital_status = strs[4];
 
         auto* new_node = new struct node;
         new_node->data = new_user;
@@ -35,5 +36,27 @@ bool read_data_from_file(struct list* list){
     }
     file.close();
 
+    return false;
+}
+bool save_data_into_file(struct list* list) {
+    std::ofstream file("data.txt");
+    if(!file.is_open()) return true;
+    struct node* current_node = list->start;
+    if (get_list_length(list) == 0) {
+        file.close();
+        return false;
+    }
+    while (true){
+        std::string output_line;
+        output_line += current_node->data->fio->first_name + ";";
+        output_line += current_node->data->fio->second_name + ";";
+        output_line += current_node->data->fio->surname + ";";
+        output_line += current_node->data->age + ";";
+        output_line += current_node->data->marital_status;
+        file << output_line << std::endl;
+        if(!current_node->next_node) break;
+        current_node = current_node->next_node;
+    }
+    file.close();
     return false;
 }
