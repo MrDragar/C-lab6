@@ -6,10 +6,12 @@
 #include <iostream>
 #include "list.h"
 
+bool is_positive_integer(const std::string& str);
+
 bool read_data_from_file(struct list* list){
     std::fstream file("data.txt");
     if (!file.is_open()) return true;
-
+    uint64_t age;
     while (true) {
         std::string input_line;
         std::getline(file, input_line);
@@ -20,6 +22,17 @@ bool read_data_from_file(struct list* list){
         for (size_t i=0; i < 5; i++) {
             if (strs[i].length() >= 15) return true;
         }
+        if(!is_positive_integer(strs[3])){
+            return true;
+        }
+        try {
+            age = std::stoull(strs[3]);
+        }
+
+        catch (const std::out_of_range& e) {
+            return true;
+        }
+
         auto* new_FIO = new struct FIO;
         new_FIO->first_name = strs[0];
         new_FIO->second_name = strs[1];
@@ -27,7 +40,7 @@ bool read_data_from_file(struct list* list){
 
         auto* new_user = new struct user;
         new_user->fio = new_FIO;
-        new_user->age = strs[3];
+        new_user->age = age;
         new_user->marital_status = strs[4];
 
         auto* new_node = new struct node;
@@ -51,7 +64,7 @@ bool save_data_into_file(struct list* list) {
         output_line += current_node->data->fio->first_name + ";";
         output_line += current_node->data->fio->second_name + ";";
         output_line += current_node->data->fio->surname + ";";
-        output_line += current_node->data->age + ";";
+        output_line += std::to_string(current_node->data->age) + ";";
         output_line += current_node->data->marital_status;
         file << output_line << std::endl;
         if(!current_node->next_node) break;

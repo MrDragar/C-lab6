@@ -147,14 +147,14 @@ void sort_list_by_second_name(struct list* list) {
     }
 }
 
-void sort_list_by_position(struct list* list) {
+void sort_list_by_age(struct list* list) {
     if (get_list_length(list) < 2) return;
     size_t n = get_list_length(list);
     for (size_t i = 0; i < n - 1; i++) {
         struct node* current_node = list->start;
         struct node* next_node = current_node->next_node;
         for (size_t j = 0; j < n - i - 1; j++) {
-            if (is_bigger(current_node->data->age, next_node->data->age)) {
+            if (current_node->data->age > next_node->data->age) {
                 struct user* user = current_node->data;
                 current_node->data = next_node->data;
                 next_node->data = user;

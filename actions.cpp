@@ -7,8 +7,34 @@
 #include "file.h"
 
 
+bool is_positive_integer(const std::string& str) {
+    std::regex integerRegex("\\d+");
+    return std::regex_match(str, integerRegex);
+}
+
+uint64_t get_and_validate_number() {
+    std::string str;
+    while (true) {
+        getline(std::cin, str);
+        if(!is_positive_integer(str)){
+            std::cout << "Your line isn't an positive integer" << std::endl;
+            continue;
+        }
+        try {
+            uint64_t result = std::stoull(str);
+            std::system("clear");
+            return result;
+        }
+
+        catch (const std::out_of_range& e) {
+            std::cerr << "Your integer is too big" << std::endl;
+        }
+    }
+}
+
+
 void wait_key_press(){
-    std::cout << "Press any butten for continue" << std::endl;
+    std::cout << "Press any button for continue" << std::endl;
     system("read -n 1");
     system("clear");
 }
@@ -62,9 +88,9 @@ void Actions::add_element(struct list* list){
     auto* user = new struct user;
     user->fio = fio;
 
-    std::cout << "Put user's positions" << std::endl;
-    str = get_and_validate_data();
-    user->age = str;
+    std::cout << "Put user's age" << std::endl;
+    uint64_t age = get_and_validate_number();
+    user->age = age;
     
 
     std::cout << "Put user's marital status" << std::endl;
@@ -107,8 +133,8 @@ void Actions::print_list(struct list* list){
     std::cout << std::setw(15) << "First name";
     std::cout << std::setw(15) << "Second name";
     std::cout << std::setw(15) << "Surname" ;
-    std::cout << std::setw(15) << "Marital status";
-    std::cout << std::setw(15) << "Age" << std::endl;
+    std::cout << std::setw(15) << "Age";
+    std::cout << std::setw(15) << "Marital status" << std::endl;
     std::cout << std::setfill('*') << std::setw(80) << "*" << std::endl;
 
     for (size_t i=0; i < len; i++) {
@@ -119,8 +145,8 @@ void Actions::print_list(struct list* list){
         std::cout << std::setw(15) << user->fio->first_name;
         std::cout << std::setw(15) << user->fio->second_name;
         std::cout << std::setw(15) << user->fio->surname;
-        std::cout << std::setw(15) << user->marital_status;
-        std::cout << std::setw(15) << user->age << std::endl;
+        std::cout << std::setw(15) << user->age;
+        std::cout << std::setw(15) << user->marital_status << std::endl;
         std::cout << std::setfill('*') << std::setw(80) << "*" << std::endl;
 
     }
@@ -163,7 +189,7 @@ void Actions::set_default_values(struct list* list){
         current_node->data->fio->first_name = "-";
         current_node->data->fio->second_name = "-";
         current_node->data->fio->surname = "-";
-        current_node->data->age = "-";
+        current_node->data->age = 0;
         current_node->data->marital_status = "-";
         if(!current_node->next_node) break;
         current_node = current_node->next_node;

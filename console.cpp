@@ -29,7 +29,7 @@ void get_user_count_by_field(struct list* list){
             else
                 if (action == "3") func = &get_number_by_second_name;
                 else
-                    if (action == "4") func = &get_number_by_position;
+                    if (action == "4") func = &get_number_by_age;
                     else
                         if (action == "5") func = &get_number_by_home_location;
                         else
@@ -59,7 +59,7 @@ void sort_users(struct list* list){
             else
                 if (action == "3") sort_list_by_surname(new_list);
                 else
-                    if (action == "4") sort_list_by_position(new_list);
+                    if (action == "4") sort_list_by_age(new_list);
                     else
                         if (action == "5") sort_list_by_marital_status(new_list);
                         else

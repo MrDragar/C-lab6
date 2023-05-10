@@ -12,7 +12,7 @@ struct FIO{
 
 struct user{
     struct FIO* fio;
-    string age;
+    uint64_t age;
     string marital_status;
 };
 
@@ -35,6 +35,6 @@ struct user* get_user_by_index(struct list* list, size_t index);
 void sort_list_by_first_name(struct list* list);
 void sort_list_by_second_name(struct list* list);
 void sort_list_by_surname(struct list* list);
-void sort_list_by_position(struct list* list);
+void sort_list_by_age(struct list* list);
 void sort_list_by_marital_status(struct list* list);
 #endif

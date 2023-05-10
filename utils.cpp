@@ -54,11 +54,11 @@ int get_number_by_home_location(struct list* list, const std::string& str){
     return count;
 }
 
-int get_number_by_position(struct list* list, const std::string& str){
+int get_number_by_age(struct list* list, const std::string& str){
     int count = 0;    
     struct node* current_node = list->start;
     while(true){
-        if(current_node->data->age == str) count ++;
+        if(std::to_string(current_node->data->age) == str) count ++;
         if(current_node->next_node){
             current_node = current_node->next_node;
         }
