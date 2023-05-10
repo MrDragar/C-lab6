@@ -4,6 +4,7 @@
 #include "list.h"
 #include "utils.h"
 #include "actions.h"
+#include "file.h"
 
 using std::cout;
 using std::endl;
@@ -76,6 +77,7 @@ void start_session(){
             continue;
         }
         if(action == "5") {
+            Actions::read_from_file(&list);
             continue;
         }
         if(action == "6") {                        

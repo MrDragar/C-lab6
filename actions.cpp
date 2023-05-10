@@ -4,6 +4,7 @@
 #include "actions.h"
 #include <regex>
 #include "list.h"
+#include "file.h"
 
 
 void wait_key_press(){
@@ -125,5 +126,21 @@ void Actions::print_list(struct list* list){
     }
     std::cout << std::setfill(' ');
 
+    wait_key_press();
+}
+
+void Actions::read_from_file(struct list **list) {
+    auto* new_list = init_list();
+    bool error = read_data_from_file(new_list);
+    if (error) {
+        std::cout << "Some errors while reading file" << std::endl;
+        delete new_list;
+        wait_key_press();
+        return;
+    }
+    clear_list(list);
+    delete *list;
+    *list = new_list;
+    std::cout << "File was read successful" << std::endl;
     wait_key_press();
 }
